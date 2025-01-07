@@ -78,26 +78,27 @@
             border-radius: 8px;
             margin-bottom: 1rem;
         }
-        .project {
+        .project, .link {
             margin-bottom: 1rem;
             transition: transform 0.3s, background 0.3s;
+            padding: 1rem; /* Add padding */
+            border-radius: 8px; /* Round corners */
+            color: #ffffff;
         }
-        .project:hover {
+        .project:hover, .link:hover {
             transform: scale(1.05);
-            background: #3a3a3a;
+            background: #3a3a3a; /* Change background color on hover */
         }
-        .project h3 {
-            margin: 0;
-            transition: color 0.3s;
-        }
-        .project h3 a {
-            color: #ffffff; /* Ensure the link color is white */
+        .project h3 a, .link h3 a {
+            color: #ffffff; /* Ensure link color is white */
             text-decoration: none; /* Remove underline from links */
             position: relative;
             display: inline-block;
         }
         .project h3 a::before,
-        .project h3 a::after {
+        .project h3 a::after,
+        .link h3 a::before,
+        .link h3 a::after {
             content: attr(data-text);
             position: absolute;
             left: 0;
@@ -108,7 +109,7 @@
             filter: blur(1px);
             animation: glitch-text 3s infinite;
         }
-        .project h3 a::after {
+        .link h3 a::after {
             left: 1px;
             text-shadow: -1px 0 cyan;
         }
@@ -176,8 +177,8 @@
         </div>
 
         <h2>🔗 Links</h2>
-        <div class="project-container">
-            <ul id="links" class="list-unstyled"></ul>
+        <div id="links" class="project-container">
+            <div id="linksList" class="list-unstyled"></div> <!-- Use a div instead of ul -->
         </div>
 
         <div class="social-icons">
@@ -223,15 +224,15 @@
         ];
 
         // Populate links into the page
-        const linksList = document.getElementById('links');
+        const linksList = document.getElementById('linksList');
         linksData.forEach(link => {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = link.url;
-            a.target = '_blank';
-            a.textContent = link.title;
-            li.appendChild(a);
-            linksList.appendChild(li);
+            const linkDiv = document.createElement('div');
+            linkDiv.className = 'link'; // Add the link class for styling
+            linkDiv.innerHTML = `
+                <h3><a href="${link.url}" target="_blank" data-text="${link.title}">${link.title}</a></h3>
+                <p>Description for ${link.title} or some detail can go here.</p> <!-- You can add a description -->
+            `;
+            linksList.appendChild(linkDiv);
         });
 
         // Function to fetch pinned repositories from GitHub
