@@ -231,7 +231,7 @@
             linkDiv.className = 'link'; // Add the link class for styling
             linkDiv.innerHTML = `
                 <h3><a href="${link.url}" target="_blank" data-text="${link.title}">${link.title}</a></h3>
-                <p>Description for ${link.title} or some detail can go here.</p> <!-- You can add a description -->
+                <p>${link.title} - ${link.url}</p> <!-- You can add a description -->
             `;
             linksList.appendChild(linkDiv);
         });
